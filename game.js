@@ -1,3 +1,5 @@
+
+
 /* ===== KABOOM CONFIG ===== */
 kaboom({
     global: true,
@@ -149,7 +151,7 @@ scene('game', ({ level, score }) => {
     ]);
     add([
         sprite('tlor'),
-        pos(550, 180),
+        pos(455, 90),
         scale(0.15)
     ]);
 
@@ -325,6 +327,41 @@ scene('game', ({ level, score }) => {
     };
 });
 
+/* ===== OPEN SCENE ===== */
+scene('open', () => {
+    const timer = setInterval(() => {
+        const obj = add([
+            sprite('open-triforce'),
+            origin('center'),
+            pos(422, 220),
+            scale(0.5)
+        ]);
+        wait(0.6, () => {
+            destroy(obj);
+        });
+    }, 1200);
+
+    wait(5, () => {
+        add([
+            text('i hope you like it', 8),
+            origin('center'),
+            pos((width() / 2) - 20, (height() / 2) + 130)
+        ]);
+        add([
+            text('press [space] to start', 8),
+            origin('center'),
+            pos((width() / 2) - 20, (height() / 2) + 150)
+        ]);
+    });
+
+    keyPress('space', () => {
+        wait(0.5, () => {
+            clearInterval(timer);
+            go('title');
+        });
+    });
+});
+
 /* ===== TITLE SCENE ===== */
 scene('title', () => {
     const music = play('menu', {
@@ -335,7 +372,7 @@ scene('title', () => {
     add([
         sprite('tlor'),
         origin('center'),
-        pos(420, 200),
+        pos(410, 250),
         scale(0.3)
     ]);
 
@@ -411,7 +448,7 @@ scene('game-cleared', ({ score }) => {
             sprite('chest'),
             origin('center'),
             pos(width() / 2, (height() / 2) + 30),
-            scale(1)
+            scale(1.2)
         ]);
         add([
             text('here is your prize', 22),
@@ -433,10 +470,10 @@ scene('game-cleared', ({ score }) => {
 });
 
 /* ===== GAME START ===== */
-start('title');
+start('open');
 
 /* ===== SPRITES ===== */
-loadSprite('tlor', 'assets/sprites/8jSS3ho.png');
+loadSprite('tlor', 'assets/sprites/tlor-logo.png');
 loadSprite('top-left-wall', 'assets/sprites/xlpUxIm.png');
 loadSprite('top-wall', 'assets/sprites/QA257Bj.png');
 loadSprite('top-right-wall', 'assets/sprites/z0OmBd1.jpeg');
@@ -457,7 +494,7 @@ loadSprite('red-rupee', 'assets/sprites/STyGqLH.png');
 loadSprite('silver-rupee', 'assets/sprites/Ykz0lRF.png');
 loadSprite('gold-rupee', 'assets/sprites/QIawGhH.png');
 loadSprite('triforce', 'assets/sprites/iVvcIvM.png');
-loadSprite('chest', 'assets/sprites/rTUUXBV.png');
+loadSprite('chest', 'assets/sprites/chest.png');
 loadSprite('skeleton', 'assets/sprites/Ei1VnX8.png');
 loadSprite('slicer', 'assets/sprites/c6JFi5Z.png');
 loadSprite('link-down', 'assets/sprites/r377FIM.png');
@@ -465,6 +502,7 @@ loadSprite('link-left', 'assets/sprites/eiY5zyX.png');
 loadSprite('link-right', 'assets/sprites/yZIb8O2.png');
 loadSprite('link-up', 'assets/sprites/UkV0we0.png');
 loadSprite('kaboom', 'assets/sprites/o9WizfI.png');
+loadSprite('open-triforce', 'assets/sprites/open-triforce.png');
 
 /* ===== MUSIC ===== */
 loadSound('menu', 'assets/sounds/tlor-menu.mp3');
