@@ -14,7 +14,7 @@ kaboom({
 const HERO_SPEED = 120;
 const SLICER_SPEED = 150;
 const SKELETON_SPEED = 100;
-const MUSIC_VOLUME = 1.5;
+const MUSIC_VOLUME = 1;
 
 /* ===== GAME SCENE ===== */
 scene('game', ({ level, score }) => {
@@ -124,7 +124,7 @@ scene('game', ({ level, score }) => {
     /* ===== UI CONFIG ===== */
     const scoreLabel = add([
         text(`score: ${score}`),
-        pos(620, 50),
+        pos(width() / 2 + 165, height() / 4 - 70),
         layer('ui'),
         scale(2),
         {
@@ -133,25 +133,25 @@ scene('game', ({ level, score }) => {
     ]);
     add([
         text(`level: ${level + 1}`),
-        pos(620, 80),
+        pos(width() / 2 + 165, height() / 4 - 50),
         layer('ui'),
         scale(2)
     ]);
     add([
         text('use [keyboard] to move'),
-        pos(560, 400),
+        pos(width() / 2 + 110, height() - 110),
         layer('ui'),
         scale(1.5)
     ]);
     add([
         text('press [space] to attack'),
-        pos(555, 420),
+        pos(width() / 2 + 105, height() - 90),
         layer('ui'),
         scale(1.5)
     ]);
     add([
         sprite('tlor'),
-        pos(455, 90),
+        pos(width() / 2 + 10, height() / 4 - 30),
         scale(0.15)
     ]);
 
@@ -333,7 +333,7 @@ scene('open', () => {
         const obj = add([
             sprite('open-triforce'),
             origin('center'),
-            pos(422, 220),
+            pos(width() / 2 - 24, height() / 2 - 24),
             scale(0.5)
         ]);
         wait(0.6, () => {
@@ -343,9 +343,9 @@ scene('open', () => {
 
     wait(5, () => {
         add([
-            text('i hope you like it', 8),
+            text('hope you like it', 8),
             origin('center'),
-            pos((width() / 2) - 20, (height() / 2) + 130)
+            pos((width() / 2) - 20, height() / 4 - 30)
         ]);
         add([
             text('press [space] to start', 8),
@@ -369,29 +369,41 @@ scene('title', () => {
         loop: true
     });
 
-    add([
-        sprite('tlor'),
-        origin('center'),
-        pos(410, 250),
-        scale(0.3)
-    ]);
-
-    const timer = setInterval(() => {
-        const obj = add([
-            text('press [space] to start', 12),
+    wait(3, () => {
+        add([
+            text('danrlady studios presents', 6),
             origin('center'),
-            pos(width() / 2, (height() / 2) + 150)
+            pos(width() / 2 - 15, height() / 2 - 220)
         ]);
-        wait(0.6, () => {
-            destroy(obj);
-        });
-    }, 1200);
+    });
 
-    keyPress('space', () => {
-        wait(0.5, () => {
-            clearInterval(timer);
-            music.stop();
-            go('game', { level: 0, score: 0 });
+    wait(6, () => {
+        add([
+            sprite('tlor'),
+            origin('center'),
+            pos(width() / 2 - 50, height() / 2),
+            scale(0.3)
+        ]);
+    });
+
+    wait(8, () => {
+        const timer = setInterval(() => {
+            const obj = add([
+                text('press [space] to start', 12),
+                origin('center'),
+                pos(width() / 2, (height() / 2) + 150)
+            ]);
+            wait(0.6, () => {
+                destroy(obj);
+            });
+        }, 1200);
+
+        keyPress('space', () => {
+            wait(1, () => {
+                clearInterval(timer);
+                music.stop();
+                go('game', { level: 0, score: 0 });
+            });
         });
     });
 });
