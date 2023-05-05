@@ -469,7 +469,7 @@ scene('game-cleared', ({ score }) => {
         ]);
         setInterval(() => {
             const obj = add([
-                text('<game code here>', 42),
+                text('E02J-4HD7-7K0H-WM6C', 42),
                 origin('center'),
                 pos(width() / 2, (height() / 2) + 150)
             ]);
